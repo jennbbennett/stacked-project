@@ -41,25 +41,48 @@
         <div class="col-md-8">
           <h2>Heading</h2>
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
         </div>
         <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <div class="input-group">
-            <span class="input-group-addon" id="sizing-addon1">Name</span>
-            <input type="text" class="form-control" placeholder="Your name first and last" aria-describedby="sizing-addon2">
-          </div>
-          <div class="input-group">
-            <span class="input-group-addon" id="sizing-addon2">Email</span>
-            <input type="text" class="form-control" placeholder="yourname@email.com" aria-describedby="sizing-addon2">
-          </div>
-          <div class="input-group">
-            <span class="input-group-addon" id="sizing-addon3">Stack</span>
-            <input type="text" class="form-control" placeholder="My Stack Name" aria-describedby="sizing-addon2">
-          </div>
-          <button class="btn btn-default btn-sm btn-block" type="button"
-          aria-expanded="false">Stack Me</button>
+          <section class="get-started-input">
+            <h2>Get Started</h2>
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+              <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon1">Name</span>
+                <input id="text-name" type="text" class="form-control" placeholder="Your name first and last" aria-describedby="sizing-addon2">
+              </div>
+              <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2">Email</span>
+                <input id="text-email" type="text" class="form-control" placeholder="yourname@email.com" aria-describedby="sizing-addon2">
+              </div>
+              <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon3">Stack</span>
+                <input id="text-stackName" type="text" class="form-control" placeholder="My Stack Name" aria-describedby="sizing-addon2">
+              </div>
+              <button id="stackMe-button" class="btn btn-default btn-sm btn-block" type="button"
+              aria-expanded="false">Stack Me</button>
+          </section>
+          <section class="search-input">
+            <h2>Nothing to read?</h2>
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+            <a href="http://www.nytimes.com/best-sellers-books/"></a></p>
+              <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon4">Title</span>
+                <input id="title-search" type="text" class="form-control" placeholder="Book Title" aria-describedby="sizing-addon2">
+              </div>
+              <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon5">Author</span>
+                <input id="author-search" type="text" class="form-control" placeholder="Author's Name" aria-describedby="sizing-addon2">
+              </div>
+              <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon6">Keyword</span>
+                <input id="keyword-search" type="text" class="form-control" placeholder="Key word or phrase" aria-describedby="sizing-addon2">
+              </div>
+              <button id="findMe-button" class="btn btn-default btn-sm btn-block" type="button"
+              aria-expanded="false">Find me some books!</button>
+              <button id="clearSearch-button" class="btn btn-default btn-sm btn-block" type="button"
+              aria-expanded="false">Clear Search - let's try again!</button>
+
+          </section>
         </div>
       </div>
     </div>
@@ -92,5 +115,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+
   </body>
-  S</html>
+  </html>
