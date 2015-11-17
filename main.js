@@ -6,9 +6,15 @@ $(document).ready(function() {
   $('#text-name').focus();
 
 
+
   //hidden search div for new user view
   var searchInput = $('.search-input');
   $(searchInput).hide();
+
+
+//Need to focus on title search box
+//  var getSearching = $('.search-input');
+//  $('#title-search').focus();
 
   var stackList = $('.stack-list');
   $(stackList).hide();
@@ -22,17 +28,19 @@ $(document).ready(function() {
       email: email,
       bookLists: [{
         listName: stackName,
-        books: [{
-          title: "",
-          author: "",
-          thumbnail: "",
-          ISBN: ""
-        }, {
-          title: "",
-          author: "",
-          thumbnail: "",
-          ISBN: ''
-        }]
+        books: [
+          // {
+        //   title: "",
+        //   author: "",
+        //   thumbnail: "",
+        //   publicationDate: ""
+        // }, {
+        //   title: "",
+        //   author: "",
+        //   thumbnail: "",
+        //   publicationDate: ''
+        // }
+      ]
       }],
     };
 
@@ -71,24 +79,43 @@ $(document).ready(function() {
     if( keyword !== undefined && keyword.length>0){
       searchURL = searchURL + 'intitle:' + encodeURI(author);
     }
-      // searchURL = searchURL + '+&maxResults=10&printType=books&projection=lite&startIndex=0&fields=items(volumeInfo(authors%2CimageLinks%2FsmallThumbnail%2CindustryIdentifiers%2Ctitle))%2CtotalItems&key=AIzaSyCe2EkbnxxEpkWIV5_1CSj2u2STSwrlKuo';
       searchURL = searchURL + '&printType=books&projection=lite&fields=items(volumeInfo(authors%2CimageLinks%2FsmallThumbnail%2CpublishedDate%2Ctitle))%2CtotalItems&key=AIzaSyCe2EkbnxxEpkWIV5_1CSj2u2STSwrlKuo';
     // $.get('https://www.googleapis.com/books/v1/volumes?q=intitle:' + encodeURI(title) + '+inauthor:' + encodeURI(author) + '+' + encodeURI(keyword) +
     $.get(searchURL,
       function(data) {
         console.log(data);
         var resultTable = $('#results-table');
-        data.items.forEach(function(element) {
+        data.items.forEach(function(book) {
           var row = $(document.createElement('tr'));
-          row.append($(document.createElement('td')).append($(document.createElement('img')).attr('src', element.volumeInfo.imageLinks.smallThumbnail)));
-          row.append($(document.createElement('td')).text(element.volumeInfo.title));
-          row.append($(document.createElement('td')).text(element.volumeInfo.authors));
-          row.append($(document.createElement('td')).text(element.volumeInfo.publishedDate));
+          row.append($(document.createElement('td')).append($(document.createElement('img')).attr('src', book.volumeInfo.imageLinks.smallThumbnail)));
+          row.append($(document.createElement('td')).text(book.volumeInfo.title));
+          row.append($(document.createElement('td')).text(book.volumeInfo.authors));
+          row.append($(document.createElement('td')).text(book.volumeInfo.publishedDate));
+          var bookInfo = {
+            title: book.volumeInfo.title,
+            author: book.volumeInfo.author,
+            publishedDate: book.volumeInfo.publishedDate,
+            thumbnail: book.volumeInfo.imageLinks.smallThumbnail
+          };
+          var $addButton = $('<button id="add">Add to Stack</button>');
+          $addButton.on('click', function(){
+            var stringObject = this.dataset.bookInfo;
+            var bookObject = JSON.parse(stringObject);
+            var bookListObject = JSON.parse(localStorage.getItem('bookList'));
+          //  console.log('books');
+            var bookList = bookListObject.bookLists[0];
+            console.log(bookListObject);
+            bookList.books.push(bookObject);
+            console.log(bookListObject);
+            localStorage.setItem('bookList', JSON.stringify(bookListObject));
+            //get from local storage, iterate over bookList[0].books and append to new table
+          });
+          $addButton.attr('data-book-info', JSON.stringify(bookInfo));
+          row.append($addButton);
+          console.log(bookInfo);
           resultTable.append(row);
-
         });
       });
-    //need a callback function here
   }
 
 
@@ -121,5 +148,7 @@ $(document).ready(function() {
     $('#author-search').val('');
     $('#keyword-search').val('');
   });
+
+
 
 });
