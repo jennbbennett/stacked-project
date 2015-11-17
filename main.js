@@ -93,22 +93,35 @@ $(document).ready(function() {
           row.append($(document.createElement('td')).text(book.volumeInfo.publishedDate));
           var bookInfo = {
             title: book.volumeInfo.title,
-            author: book.volumeInfo.author,
+            authors: book.volumeInfo.authors,
             publishedDate: book.volumeInfo.publishedDate,
             thumbnail: book.volumeInfo.imageLinks.smallThumbnail
           };
+          console.log(bookInfo.authors);
           var $addButton = $('<button id="add">Add to Stack</button>');
           $addButton.on('click', function(){
             var stringObject = this.dataset.bookInfo;
             var bookObject = JSON.parse(stringObject);
             var bookListObject = JSON.parse(localStorage.getItem('bookList'));
-          //  console.log('books');
             var bookList = bookListObject.bookLists[0];
-            console.log(bookListObject);
             bookList.books.push(bookObject);
             console.log(bookListObject);
             localStorage.setItem('bookList', JSON.stringify(bookListObject));
             //get from local storage, iterate over bookList[0].books and append to new table
+          //  var stack = JSON.parse(localStorage.getItem(bookList.bookLists.books));
+          var stack = JSON.parse(localStorage.getItem('bookList'));
+        //    console.log(stack.bookLists[0]);
+            stack.bookLists[0].books.forEach(function(book){
+              console.log(book);
+              var stackTable = $('#stack-table');
+              var row = $(document.createElement('tr'));
+              row.append($(document.createElement('td')).append($(document.createElement('img')).attr('src', book.thumbnail)));
+              row.append($(document.createElement('td')).text(book.title));
+              row.append($(document.createElement('td')).text(book.authors));
+              row.append($(document.createElement('td')).text(book.publishedDate));
+              stackTable.append(row);
+            });
+            $(stackList).show();
           });
           $addButton.attr('data-book-info', JSON.stringify(bookInfo));
           row.append($addButton);
