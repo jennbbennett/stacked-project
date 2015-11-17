@@ -25,8 +25,8 @@
         <div class="jumbotron">
           <div class="row">
             <div class="col-md-8">
-              <h1>Hello!</h1>
-              <h1>Welcome to Stacked...</h1>
+              <h1 id="welcome-name">Hello!</h1>
+              <h1 id="welcome-stack-name">Welcome to Stacked...</h1>
               <p></p>
             </div>
             <div class="col-md-4">
@@ -39,13 +39,29 @@
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-md-8">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <section class="about-info">
+            <h2>Heading</h2>
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus,
+              tellus ac cursus commodo, tortor mauris condimentum nibh, ut
+              fermentum massa justo sit amet risus. Etiam porta sem malesuada
+              magna mollis euismod. Donec sed odio dui. </p>
+          </section>
+          <section class="stack-list">
+            <header><h2>Title of Stack Here</h2></header>
+              <main>
+                <ul id="stack-titles">
+                </ul>
+              </main>
+          </section>
+
         </div>
         <div class="col-md-4">
           <section class="get-started-input">
             <h2>Get Started</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus,
+              tellus ac cursus commodo, tortor mauris condimentum nibh, ut
+              fermentum massa justo sit amet risus. Etiam porta sem malesuada
+              magna mollis euismod. Donec sed odio dui. </p>
               <div class="input-group">
                 <span class="input-group-addon" id="sizing-addon1">Name</span>
                 <input id="text-name" type="text" class="form-control" placeholder="Your name first and last" aria-describedby="sizing-addon2">
@@ -63,8 +79,11 @@
           </section>
           <section class="search-input">
             <h2>Nothing to read?</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-            <a href="http://www.nytimes.com/best-sellers-books/"></a></p>
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus,
+              tellus ac cursus commodo, tortor mauris condimentum nibh, ut
+              fermentum massa justo sit amet risus. Etiam porta sem malesuada
+              magna mollis euismod. Donec sed odio dui.</p>
+            <p>Need some ideas?  Here is a link to the <a href="http://www.nytimes.com/best-sellers-books/" target="_blank">New York Times Best Sellers</a> List</p>
               <div class="input-group">
                 <span class="input-group-addon" id="sizing-addon4">Title</span>
                 <input id="title-search" type="text" class="form-control" placeholder="Book Title" aria-describedby="sizing-addon2">
@@ -81,8 +100,21 @@
               aria-expanded="false">Find me some books!</button>
               <button id="clearSearch-button" class="btn btn-default btn-sm btn-block" type="button"
               aria-expanded="false">Clear Search - let's try again!</button>
-
           </section>
+          <section class="results-list">
+            <header><h2>Search Results</h2></header>
+              <main>
+                <table id="results-table" class="table">
+                  <tr>
+                    <td>Thumbnail</td>
+                    <td>Title</td>
+                    <td>Author</td>
+                    <td>Publication Date</td>
+                  </tr>
+                </table>
+              </main>
+          </section>
+
         </div>
       </div>
     </div>
@@ -102,6 +134,10 @@
           Popular
           <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
           Reference
+          <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+          Poetry
+          <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+          Historical
           <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
         </p>
       </div>
