@@ -23,19 +23,7 @@ $(document).ready(function() {
       email: email,
       bookLists: [{
         listName: stackName,
-        books: [
-          // {
-          //   title: "",
-          //   author: "",
-          //   thumbnail: "",
-          //   publicationDate: ""
-          // }, {
-          //   title: "",
-          //   author: "",
-          //   thumbnail: "",
-          //   publicationDate: ''
-          // }
-        ]
+        books: {}
       }],
     };
 
@@ -67,7 +55,9 @@ $(document).ready(function() {
     var stack = JSON.parse(localStorage.getItem('bookList'));
     var stackTable = $('#stack-table');
     stackTable.empty();
-    stack.bookLists[0].books.forEach(function(book) {
+    var bookObj = stack.bookLists[0].books;
+    Object.keys(bookObj).forEach(function(bookKey) {
+      var book = bookObj[bookKey];
       var row = $(document.createElement('tr'));
       row.append($(document.createElement('td')).append($(document.createElement('img')).attr('src', book.thumbnail)));
       row.append($(document.createElement('td')).text(book.title));
@@ -78,7 +68,8 @@ $(document).ready(function() {
         var bookId = this.dataset.bookId;
         var bookListObject = JSON.parse(localStorage.getItem('bookList'));
         var bookList = bookListObject.bookLists[0];
-        bookList.books.push(bookObject);
+        //  bookList.books.push(bookObject);
+        delete bookList.books[bookId];
         console.log(bookListObject);
         localStorage.setItem('bookList', JSON.stringify(bookListObject));
         //get from local storage, iterate over bookList[0].books and append to new table
@@ -109,30 +100,39 @@ $(document).ready(function() {
         console.log(data);
         var resultTable = $('#results-table');
         data.items.forEach(function(book) {
-          var row = $(document.createElement('tr'));
-          row.append($(document.createElement('td')).append($(document.createElement('img')).attr('src', book.volumeInfo.imageLinks.smallThumbnail)));
+          var row = $(document.createElement('tr')).attr('id', 'addrow-id' + book.id);
+          var imgTd = $(document.createElement('td'));
+          var thumbnailLink = '';
+          if (book.volumeInfo.imageLinks !== undefined && book.volumeInfo.imageLinks.smallThumbnail !== undefined) {
+            thumbnailLink = book.volumeInfo.imageLinks.smallThumbnail;
+            imgTd.append($(document.createElement('img')).attr('src', thumbnailLink));
+          } else {
+            imgTd.text('No Image Available');
+          }
+          row.append(imgTd);
           row.append($(document.createElement('td')).text(book.volumeInfo.title));
           row.append($(document.createElement('td')).text(book.volumeInfo.authors));
           row.append($(document.createElement('td')).text(book.volumeInfo.publishedDate));
           var bookInfo = {
-              id: book.id,
+            id: book.id,
             title: book.volumeInfo.title,
             authors: book.volumeInfo.authors,
             publishedDate: book.volumeInfo.publishedDate,
-            thumbnail: book.volumeInfo.imageLinks.smallThumbnail
+            thumbnail: thumbnailLink
           };
-          console.log(bookInfo.authors);
           var $addButton = $('<button id="add">Add to Stack</button>');
           $addButton.on('click', function() {
             var stringObject = this.dataset.bookInfo;
             var bookObject = JSON.parse(stringObject);
             var bookListObject = JSON.parse(localStorage.getItem('bookList'));
             var bookList = bookListObject.bookLists[0];
-            bookList.books.push(bookObject);
+            bookList.books[bookObject.id] = bookObject;
             console.log(bookListObject);
             localStorage.setItem('bookList', JSON.stringify(bookListObject));
-            //get from local storage, iterate over bookList[0].books and append to new table
             renderStack();
+            var resultTable = $('#results-table');
+            var thisRow = $('addrow-id' + bookObject.id);
+            thisRow.remove();
           });
           $addButton.attr('data-book-info', JSON.stringify(bookInfo));
           row.append($addButton);
