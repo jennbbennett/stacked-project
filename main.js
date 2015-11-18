@@ -10,6 +10,8 @@ $(document).ready(function() {
   //Need to focus on title search box
   //  var getSearching = $('.search-input');
   //  $('#title-search').focus();
+  var resultsList = $('.results-list');
+  $(resultsList).hide();
 
   var stackList = $('.stack-list');
   $(stackList).hide();
@@ -48,7 +50,7 @@ $(document).ready(function() {
     console.log(bookListObject);
     $('#welcome-name').text('Welcome back, ' + bookListObject.name + '!');
     $('#welcome-stack-name').text('Here is your "' + bookListObject.bookLists[0].listName + '" stack...');
-
+    $('.stack-title').text(bookListObject.bookLists[0].listName);
   }
 
   function renderStack() {
@@ -68,7 +70,6 @@ $(document).ready(function() {
         var bookId = this.dataset.bookId;
         var bookListObject = JSON.parse(localStorage.getItem('bookList'));
         var bookList = bookListObject.bookLists[0];
-        //  bookList.books.push(bookObject);
         delete bookList.books[bookId];
         console.log(bookListObject);
         localStorage.setItem('bookList', JSON.stringify(bookListObject));
@@ -152,6 +153,7 @@ $(document).ready(function() {
     var myStackName = $('#text-stackName').val();
     console.log(myStackName);
     initializeLocalStorage(myName, myEmail, myStackName);
+    window.location.assign('./index.html');
   });
 
 
@@ -164,6 +166,7 @@ $(document).ready(function() {
     var keyword = $('#keyword-search').val();
     console.log(keyword);
     searchForBook(title, author, keyword);
+    $(resultsList).show();
   });
 
   //clear search button
@@ -173,6 +176,7 @@ $(document).ready(function() {
     $('#keyword-search').val('');
     var resultTable = $('#results-table');
     resultTable.empty();
+    $(resultsList).hide();
   });
 
 
