@@ -61,6 +61,7 @@ $(document).ready(function() {
     Object.keys(bookObj).forEach(function(bookKey) {
       var book = bookObj[bookKey];
       var row = $(document.createElement('tr'));
+//row.className = 'stack-row';
       row.append($(document.createElement('td')).append($(document.createElement('img')).attr('src', book.thumbnail)));
       row.append($(document.createElement('td')).text(book.title));
       row.append($(document.createElement('td')).text(book.authors));
@@ -73,11 +74,28 @@ $(document).ready(function() {
         delete bookList.books[bookId];
         console.log(bookListObject);
         localStorage.setItem('bookList', JSON.stringify(bookListObject));
-        //get from local storage, iterate over bookList[0].books and append to new table
         renderStack();
       });
       $removeButton.attr('data-book-id', book.id);
       row.append($removeButton);
+      var $readButton = $('<button id="read">Mark as Read</button>');
+      var $unreadButton = $('<button id="unread">Mark as Unread</button>');
+      $readButton.on('click', function() {
+        row.css('background-color', 'red');
+        //row.css('background-image', '');
+        $readButton.hide();
+        $unreadButton.show();
+      });
+      $unreadButton.on('click', function() {
+        //row.css('background-image','url(http://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSYBRAnRrpka_5cUIgbbfqluYXLmYOeVpyAehjPW3MgqO_mysVE)');
+        //row.css('background-size','cover');
+        row.css('background-color', 'blue');
+        $unreadButton.hide();
+        $readButton.show();
+      });
+      row.append($readButton);
+      row.append($unreadButton);
+      $unreadButton.hide();
       stackTable.append(row);
     });
     $(stackList).show();
@@ -132,12 +150,11 @@ $(document).ready(function() {
             localStorage.setItem('bookList', JSON.stringify(bookListObject));
             renderStack();
             var resultTable = $('#results-table');
-            var thisRow = $('addrow-id' + bookObject.id);
-            thisRow.remove();
+            var thisRow = $('#addrow-id' + bookObject.id);
+            thisRow.css("display", 'none');
           });
           $addButton.attr('data-book-info', JSON.stringify(bookInfo));
           row.append($addButton);
-          console.log(bookInfo);
           resultTable.append(row);
         });
       });
@@ -145,7 +162,8 @@ $(document).ready(function() {
 
 
   // button from first user view to create a new book list object
-  $('#stackMe-button').click(function() {
+  $('#stackMe-button').click(function(event) {
+    event.preventDefault();
     var myName = $('#text-name').val();
     console.log(myName);
     var myEmail = $('#text-email').val();

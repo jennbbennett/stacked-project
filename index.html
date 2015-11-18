@@ -50,7 +50,7 @@
             <header><h2 class="stack-title">Title of Stack Here</h2></header>
               <main>
                 <table id="stack-table" class="table">
-                  <tr>
+                  <tr class="stack-row">
                     <td>Thumbnail</td>
                     <td>Title</td>
                     <td>Author</td>
@@ -74,13 +74,13 @@
               </div>
               <div class="input-group">
                 <span class="input-group-addon" id="sizing-addon2">Email</span>
-                <input id="text-email" type="text" class="form-control" placeholder="yourname@email.com" aria-describedby="sizing-addon2">
+                <input id="text-email" type="email" name="email" required class="form-control" placeholder="yourname@email.com" aria-describedby="sizing-addon2">
               </div>
               <div class="input-group">
                 <span class="input-group-addon" id="sizing-addon3">Stack</span>
                 <input id="text-stackName" type="text" class="form-control" placeholder="My Stack Name" aria-describedby="sizing-addon2">
               </div>
-              <button type="button" id="stackMe-button" class="btn btn-default btn-sm btn-block"
+              <button type="submit" id="stackMe-button" class="btn btn-default btn-sm btn-block"
               aria-expanded="false">Stack Me</button>
           </section>
           <section class="search-input">
@@ -111,7 +111,7 @@
             <header><h2>Search Results</h2></header>
               <main>
                 <table id="results-table" class="table">
-                  <tr>
+                  <tr class="results-row">
                     <td>Thumbnail</td>
                     <td>Title</td>
                     <td>Author</td>
