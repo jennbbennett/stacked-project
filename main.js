@@ -4,17 +4,12 @@ $(document).ready(function() {
   // focus on input box on new user view
   var getStarted = $('.get-started-input');
   $('#text-name').focus();
-
-
-
   //hidden search div for new user view
   var searchInput = $('.search-input');
   $(searchInput).hide();
-
-
-//Need to focus on title search box
-//  var getSearching = $('.search-input');
-//  $('#title-search').focus();
+  //Need to focus on title search box
+  //  var getSearching = $('.search-input');
+  //  $('#title-search').focus();
 
   var stackList = $('.stack-list');
   $(stackList).hide();
@@ -30,17 +25,17 @@ $(document).ready(function() {
         listName: stackName,
         books: [
           // {
-        //   title: "",
-        //   author: "",
-        //   thumbnail: "",
-        //   publicationDate: ""
-        // }, {
-        //   title: "",
-        //   author: "",
-        //   thumbnail: "",
-        //   publicationDate: ''
-        // }
-      ]
+          //   title: "",
+          //   author: "",
+          //   thumbnail: "",
+          //   publicationDate: ""
+          // }, {
+          //   title: "",
+          //   author: "",
+          //   thumbnail: "",
+          //   publicationDate: ''
+          // }
+        ]
       }],
     };
 
@@ -56,6 +51,7 @@ $(document).ready(function() {
       initializeUserFromLocalStorage();
       $(getStarted).hide();
       $(searchInput).show();
+      renderStack();
     }
   }
 
@@ -67,19 +63,46 @@ $(document).ready(function() {
 
   }
 
+  function renderStack() {
+    var stack = JSON.parse(localStorage.getItem('bookList'));
+    var stackTable = $('#stack-table');
+    stackTable.empty();
+    stack.bookLists[0].books.forEach(function(book) {
+      var row = $(document.createElement('tr'));
+      row.append($(document.createElement('td')).append($(document.createElement('img')).attr('src', book.thumbnail)));
+      row.append($(document.createElement('td')).text(book.title));
+      row.append($(document.createElement('td')).text(book.authors));
+      row.append($(document.createElement('td')).text(book.publishedDate));
+      var $removeButton = $('<button id="remove">Remove from Stack</button>');
+      $removeButton.on('click', function() {
+        var bookId = this.dataset.bookId;
+        var bookListObject = JSON.parse(localStorage.getItem('bookList'));
+        var bookList = bookListObject.bookLists[0];
+        bookList.books.push(bookObject);
+        console.log(bookListObject);
+        localStorage.setItem('bookList', JSON.stringify(bookListObject));
+        //get from local storage, iterate over bookList[0].books and append to new table
+        renderStack();
+      });
+      $removeButton.attr('data-book-id', book.id);
+      row.append($removeButton);
+      stackTable.append(row);
+    });
+    $(stackList).show();
+  }
 
   function searchForBook(title, author, keyword) {
     var searchURL = 'https://www.googleapis.com/books/v1/volumes?q=';
-    if( title !== undefined && title.length>0){
+    if (title !== undefined && title.length > 0) {
       searchURL = searchURL + 'intitle:' + encodeURI(title);
     }
-    if( author !== undefined && author.length>0){
+    if (author !== undefined && author.length > 0) {
       searchURL = searchURL + 'inauthor:' + encodeURI(author);
     }
-    if( keyword !== undefined && keyword.length>0){
+    if (keyword !== undefined && keyword.length > 0) {
       searchURL = searchURL + 'intitle:' + encodeURI(author);
     }
-      searchURL = searchURL + '&printType=books&projection=lite&fields=items(volumeInfo(authors%2CimageLinks%2FsmallThumbnail%2CpublishedDate%2Ctitle))%2CtotalItems&key=AIzaSyCe2EkbnxxEpkWIV5_1CSj2u2STSwrlKuo';
+    searchURL = searchURL + '&printType=books&projection=lite&fields=items(id%2CvolumeInfo(authors%2CimageLinks%2FsmallThumbnail%2CpublishedDate%2Ctitle))%2CtotalItems&key=AIzaSyCe2EkbnxxEpkWIV5_1CSj2u2STSwrlKuo';
     // $.get('https://www.googleapis.com/books/v1/volumes?q=intitle:' + encodeURI(title) + '+inauthor:' + encodeURI(author) + '+' + encodeURI(keyword) +
     $.get(searchURL,
       function(data) {
@@ -92,6 +115,7 @@ $(document).ready(function() {
           row.append($(document.createElement('td')).text(book.volumeInfo.authors));
           row.append($(document.createElement('td')).text(book.volumeInfo.publishedDate));
           var bookInfo = {
+              id: book.id,
             title: book.volumeInfo.title,
             authors: book.volumeInfo.authors,
             publishedDate: book.volumeInfo.publishedDate,
@@ -99,7 +123,7 @@ $(document).ready(function() {
           };
           console.log(bookInfo.authors);
           var $addButton = $('<button id="add">Add to Stack</button>');
-          $addButton.on('click', function(){
+          $addButton.on('click', function() {
             var stringObject = this.dataset.bookInfo;
             var bookObject = JSON.parse(stringObject);
             var bookListObject = JSON.parse(localStorage.getItem('bookList'));
@@ -108,20 +132,7 @@ $(document).ready(function() {
             console.log(bookListObject);
             localStorage.setItem('bookList', JSON.stringify(bookListObject));
             //get from local storage, iterate over bookList[0].books and append to new table
-          //  var stack = JSON.parse(localStorage.getItem(bookList.bookLists.books));
-          var stack = JSON.parse(localStorage.getItem('bookList'));
-        //    console.log(stack.bookLists[0]);
-            stack.bookLists[0].books.forEach(function(book){
-              console.log(book);
-              var stackTable = $('#stack-table');
-              var row = $(document.createElement('tr'));
-              row.append($(document.createElement('td')).append($(document.createElement('img')).attr('src', book.thumbnail)));
-              row.append($(document.createElement('td')).text(book.title));
-              row.append($(document.createElement('td')).text(book.authors));
-              row.append($(document.createElement('td')).text(book.publishedDate));
-              stackTable.append(row);
-            });
-            $(stackList).show();
+            renderStack();
           });
           $addButton.attr('data-book-info', JSON.stringify(bookInfo));
           row.append($addButton);
@@ -160,6 +171,8 @@ $(document).ready(function() {
     $('#title-search').val('');
     $('#author-search').val('');
     $('#keyword-search').val('');
+    var resultTable = $('#results-table');
+    resultTable.empty();
   });
 
 
