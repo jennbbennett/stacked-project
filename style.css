@@ -1,4 +1,17 @@
 .container-middle {
-  /*background-image: url(https:i997.photobucket.com/albums/af96/christinability/books/10181595.jpg);*/
+  background-image: url(https:i997.photobucket.com/albums/af96/christinability/books/10181595.jpg);
   background-size: cover;
+}
+
+.table-row {
+  background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjrCoUPTWg_yB8TZ9_VUMKbAl-eoIAYh0kItiyTsdiCbIXCmgI);
+  background-size: cover;
+}
+
+.col-md-8 {
+  float: left;
+}
+
+.col-md-4 {
+  float: left;
 }
