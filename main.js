@@ -63,12 +63,12 @@ $(document).ready(function() {
     Object.keys(bookObj).forEach(function(bookKey) {
       var book = bookObj[bookKey];
       var row = $(document.createElement('tr'));
-      //row.className = 'stack-row';
-      row.append($(document.createElement('td')).append($(document.createElement('img')).attr('src', book.thumbnail)));
+      row.append($(document.createElement('td')).append($(document.createElement('img')).attr('src', book.thumbnail).addClass('image-thumbnail')));
       row.append($(document.createElement('td')).text(book.title));
       row.append($(document.createElement('td')).text(book.authors));
       row.append($(document.createElement('td')).text(book.publishedDate));
-      var $removeButton = $('<button id="remove">Remove from Stack</button>');
+      var buttonTd = $(document.createElement('td'));
+      var $removeButton = $('<button id="remove" type="button" class="btn btn-default btn-xs btn-block">Remove from Stack</button>');
       $removeButton.on('click', function() {
         var bookId = this.dataset.bookId;
         var bookListObject = JSON.parse(localStorage.getItem('bookList'));
@@ -79,26 +79,25 @@ $(document).ready(function() {
         renderStack();
       });
       $removeButton.attr('data-book-id', book.id);
-      row.append($removeButton);
-      var $readButton = $('<button id="read">Mark as Read</button>');
-      var $unreadButton = $('<button id="unread">Mark as Unread</button>');
+      var $readButton = $('<button id="read" type="button" class="btn btn-default btn-xs btn-block">Mark as Read</button>');
+      var $unreadButton = $('<button id="unread" type="button" class="btn btn-default btn-xs btn-block">Mark as Unread</button>');
       $readButton.on('click', function() {
-        row.css('background-color', 'red');
-        //row.css('background-image', '');
+        row.css('background-color', '#C4BFB9');
         $readButton.hide();
         $unreadButton.show();
       });
       $unreadButton.on('click', function() {
-        //row.css('background-image','url(http://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSYBRAnRrpka_5cUIgbbfqluYXLmYOeVpyAehjPW3MgqO_mysVE)');
-        //row.css('background-size','cover');
-        row.css('background-color', 'blue');
+        row.css('background-color', '#F3D7A7');
         $unreadButton.hide();
         $readButton.show();
       });
-      row.append($readButton);
-      row.append($unreadButton);
+      buttonTd.append($removeButton);
+      buttonTd.append($readButton);
+      buttonTd.append($unreadButton);
+      row.append(buttonTd);
       $unreadButton.hide();
       stackTable.append(row);
+      row.css('background-color', '#F3D7A7');
     });
     $(stackList).show();
   }
@@ -126,7 +125,7 @@ $(document).ready(function() {
           var thumbnailLink = '';
           if (book.volumeInfo.imageLinks !== undefined && book.volumeInfo.imageLinks.smallThumbnail !== undefined) {
             thumbnailLink = book.volumeInfo.imageLinks.smallThumbnail;
-            imgTd.append($(document.createElement('img')).attr('src', thumbnailLink));
+            imgTd.append($(document.createElement('img')).attr('src', thumbnailLink).addClass('image-thumbnail'));
           } else {
             imgTd.text('No Image Available');
           }
@@ -141,7 +140,7 @@ $(document).ready(function() {
             publishedDate: book.volumeInfo.publishedDate,
             thumbnail: thumbnailLink
           };
-          var $addButton = $('<button id="add">Add to Stack</button>');
+          var $addButton = $('<button id="add" type="button" class="btn btn-default btn-xs btn-block">Add to Stack</button>');
           $addButton.on('click', function() {
             var stringObject = this.dataset.bookInfo;
             var bookObject = JSON.parse(stringObject);
@@ -156,7 +155,7 @@ $(document).ready(function() {
             thisRow.css("display", 'none');
           });
           $addButton.attr('data-book-info', JSON.stringify(bookInfo));
-          row.append($addButton);
+          row.append($(document.createElement('td')).append($addButton));
           resultTable.append(row);
         });
       });
@@ -165,7 +164,6 @@ $(document).ready(function() {
 
   // button from first user view to create a new book list object
   $('#stackMe-button').click(function(event) {
-    //event.preventDefault();
     var myName = $('#text-name').val();
     console.log(myName);
     var myEmail = $('#text-email').val();
@@ -173,7 +171,6 @@ $(document).ready(function() {
     var myStackName = $('#text-stackName').val();
     console.log(myStackName);
     initializeLocalStorage(myName, myEmail, myStackName);
-    //window.location.assign('./index.html');
   });
 
 
@@ -186,6 +183,7 @@ $(document).ready(function() {
     var keyword = $('#keyword-search').val();
     console.log(keyword);
     searchForBook(title, author, keyword);
+    $(searchInput).hide();
     $(resultsList).show();
   });
 
@@ -196,6 +194,7 @@ $(document).ready(function() {
     $('#keyword-search').val('');
     var resultTable = $('#results-table');
     resultTable.empty();
+    $(searchInput).show();
     $(resultsList).hide();
   });
 
