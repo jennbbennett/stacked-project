@@ -57,6 +57,19 @@ $(document).ready(function() {
     $('#welcome-stack-name').text('Here is your "' + bookListObject.bookLists[0].listName + '" Stack...');
     $('.stack-title').text(bookListObject.bookLists[0].listName);
   }
+window.onresize = checkText;
+  function checkText(){
+    if (window.innerWidth < 1200 && window.innerWidth > 1000) {
+      $('.remove-button').html('Remove');
+      $('.read-button').html('Read');
+      $('.unread-button').html('Unread');
+    } else {
+      $('.remove-button').html('Remove from Stack');
+      $('.read-button').html('Mark as Read');
+      $('.unread-button').html('Mark as Unread');
+    }
+
+  }
 
   function renderStack() {
     var stack = JSON.parse(localStorage.getItem('bookList'));
@@ -82,7 +95,12 @@ $(document).ready(function() {
       row.append($(document.createElement('td')).text(book.authors));
       row.append($(document.createElement('td')).text(book.publishedDate));
       var buttonTd = $(document.createElement('td'));
-      var $removeButton = $('<button id="remove" type="button" class="btn btn-default btn-xs btn-block">Remove from Stack</button>');
+      var $removeButton = $('<button id="remove" type="button" class="remove-button btn btn-default btn-xs btn-block">Remove from Stack</button>');
+      // if (window.innerWidth < 1200 && window.innerWidth > 1000) {
+      //   console.log('test');
+      //   ($removeButton).html('Remove');
+      // }
+      // checkText($removeButton, 'remove');
       $removeButton.on('click', function() {
         var bookId = this.dataset.bookId;
         var bookListObject = JSON.parse(localStorage.getItem('bookList'));
@@ -93,8 +111,8 @@ $(document).ready(function() {
         renderStack();
       });
       $removeButton.attr('data-book-id', book.id);
-      var $readButton = $('<button id="read" type="button" class="btn btn-default btn-xs btn-block">Mark as Read</button>');
-      var $unreadButton = $('<button id="unread" type="button" class="btn btn-default btn-xs btn-block">Mark as Unread</button>');
+      var $readButton = $('<button id="read" type="button" class="read-button btn btn-default btn-xs btn-block">Mark as Read</button>');
+      var $unreadButton = $('<button id="unread" type="button" class="unread-button btn btn-default btn-xs btn-block">Mark as Unread</button>');
       $readButton.on('click', function() {
         row.css('background-color', '#C4BFB9');
         $readButton.hide();
