@@ -63,7 +63,18 @@ $(document).ready(function() {
     Object.keys(bookObj).forEach(function(bookKey) {
       var book = bookObj[bookKey];
       var row = $(document.createElement('tr'));
-      row.append($(document.createElement('td')).append($(document.createElement('img')).attr('src', book.thumbnail).addClass('image-thumbnail')));
+      // trying something from 67-75
+      var imgTd = $(document.createElement('td'));
+      var thumbnailLink = '';
+      if (book.thumbnail !== ''){
+        thumbnailLink = book.thumbnail;
+        console.log(thumbnailLink);
+        imgTd.append($(document.createElement('img')).attr('src', thumbnailLink).addClass('image-thumbnail'));
+      } else {
+        imgTd.text('No Image Available');
+      }
+      row.append(imgTd);
+      // row.append($(document.createElement('td')).append($(document.createElement('img')).attr('src', book.thumbnail).addClass('image-thumbnail')));
       row.append($(document.createElement('td')).text(book.title));
       row.append($(document.createElement('td')).text(book.authors));
       row.append($(document.createElement('td')).text(book.publishedDate));
