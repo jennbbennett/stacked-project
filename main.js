@@ -7,9 +7,10 @@ $(document).ready(function() {
   //hidden search div for new user view
   var searchInput = $('.search-input');
   $(searchInput).hide();
-  //Need to focus on title search box
-  //  var getSearching = $('.search-input');
-  //  $('#title-search').focus();
+
+//  Need to focus on title search box
+  $('#title-search').focus();
+
   var resultsList = $('.results-list');
   $(resultsList).hide();
 
@@ -41,6 +42,7 @@ $(document).ready(function() {
       initializeUserFromLocalStorage();
       $(getStarted).hide();
       $(searchInput).show();
+      $('#title-search').focus();
       renderStack();
     }
   }
@@ -61,7 +63,7 @@ $(document).ready(function() {
     Object.keys(bookObj).forEach(function(bookKey) {
       var book = bookObj[bookKey];
       var row = $(document.createElement('tr'));
-//row.className = 'stack-row';
+      //row.className = 'stack-row';
       row.append($(document.createElement('td')).append($(document.createElement('img')).attr('src', book.thumbnail)));
       row.append($(document.createElement('td')).text(book.title));
       row.append($(document.createElement('td')).text(book.authors));
@@ -163,7 +165,7 @@ $(document).ready(function() {
 
   // button from first user view to create a new book list object
   $('#stackMe-button').click(function(event) {
-    event.preventDefault();
+    //event.preventDefault();
     var myName = $('#text-name').val();
     console.log(myName);
     var myEmail = $('#text-email').val();
@@ -171,7 +173,7 @@ $(document).ready(function() {
     var myStackName = $('#text-stackName').val();
     console.log(myStackName);
     initializeLocalStorage(myName, myEmail, myStackName);
-    window.location.assign('./index.html');
+    //window.location.assign('./index.html');
   });
 
 
