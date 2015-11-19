@@ -57,18 +57,18 @@
                   <h2 class="stack-title">Title of Stack Here</h2>
                 </header>
                 <main>
-                  <table  class="table">
+                  <table class="table">
                     <thead>
-                    <tr class="stack-row">
-                      <td>Thumbnail</td>
-                      <td>Title</td>
-                      <td>Author(s)</td>
-                      <td>Publication Date</td>
-                      <td></td>
-                    </tr>
-                  </thead>
-                  <tbody id="stack-table">
-                  </tbody>
+                      <tr class="stack-row">
+                        <td>Thumbnail</td>
+                        <td>Title</td>
+                        <td>Author(s)</td>
+                        <td>Publication Date</td>
+                        <td></td>
+                      </tr>
+                    </thead>
+                    <tbody id="stack-table">
+                    </tbody>
                   </table>
                 </main>
               </div>
@@ -106,20 +106,21 @@
                 <h2>Nothing to read?</h2>
                 <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
                 <p>Need some ideas? Here is a link to the <a href="http://www.nytimes.com/best-sellers-books/" target="_blank">New York Times Best Sellers</a> List</p>
-                <div class="input-group">
-                  <span class="input-group-addon" id="sizing-addon4">Title</span>
-                  <input id="title-search" type="text" class="form-control" placeholder="Book Title" aria-describedby="sizing-addon2">
-                </div>
-                <div class="input-group">
-                  <span class="input-group-addon" id="sizing-addon5">Author</span>
-                  <input id="author-search" type="text" class="form-control" placeholder="Author's Name" aria-describedby="sizing-addon2">
-                </div>
-                <div class="input-group">
-                  <span class="input-group-addon" id="sizing-addon6">Keyword</span>
-                  <input id="keyword-search" type="text" class="form-control" placeholder="Key word or phrase" aria-describedby="sizing-addon2">
-                </div>
-                <button id="findMe-button" class="btn btn-default btn-sm btn-block" type="button" aria-expanded="false">Find me some books!</button>
-                <!-- <button id="clearSearch-button" class="btn btn-default btn-sm btn-block" type="button" aria-expanded="false">Clear Search - let's try again!</button> -->
+                <form>
+                  <div class="input-group">
+                    <span class="input-group-addon" id="sizing-addon4">Title</span>
+                    <input id="title-search" type="text" class="form-control" placeholder="Book Title" aria-describedby="sizing-addon2">
+                  </div>
+                  <div class="input-group">
+                    <span class="input-group-addon" id="sizing-addon5">Author</span>
+                    <input id="author-search" type="text" class="form-control" placeholder="Author's Name" aria-describedby="sizing-addon2">
+                  </div>
+                  <div class="input-group">
+                    <span class="input-group-addon" id="sizing-addon6">Keyword</span>
+                    <input id="keyword-search" type="text" class="form-control" placeholder="Key word or phrase" aria-describedby="sizing-addon2">
+                  </div>
+                  <button id="findMe-button" class="btn btn-default btn-sm btn-block" type="button" aria-expanded="false">Find me some books!</button>
+                </form>
               </div>
             </div>
           </section>
@@ -155,8 +156,8 @@
     </div>
     <footer class="footer">
       <div class="container">
-        <p class="text-muted">Biography
-          <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+        <p <span class="glyphicon glyphicon-book" aria-hidden="true">
+          </span>
           Mystery
           <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
           Thriller

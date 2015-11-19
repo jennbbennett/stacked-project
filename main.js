@@ -193,12 +193,14 @@ $(document).ready(function() {
     var title = $('#title-search').val();
     console.log(title);
     var author = $('#author-search').val();
-    console.log(author);
     var keyword = $('#keyword-search').val();
-    console.log(keyword);
-    searchForBook(title, author, keyword);
-    $(searchInput).hide();
-    $(resultsList).show();
+    if (title || author || keyword !== '') {
+      searchForBook(title, author, keyword);
+      $(searchInput).hide();
+      $(resultsList).show();
+    } else {
+      alert('Please enter a search term in at least one field - thanks!');
+    }
   });
 
   //clear search button
