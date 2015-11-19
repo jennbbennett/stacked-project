@@ -9,6 +9,7 @@
 
 .jumbotron {
   background-color: #B9CAC4;
+  padding: 20px;
 }
 
 .table {
@@ -30,6 +31,10 @@
   width: 50px;
 }
 
+h1, h2, h4, p {
+  padding: 10px;
+}
+
 p {
   color: black;
   font-size: 14px;
@@ -45,4 +50,18 @@ td {
 }
 .btn-xs, .btn-group-xs>.btn {
   font-size: 9px;
+}
+
+.container {
+  padding: 5px;
+}
+
+.container-bottom {
+  padding:5px;
+  display: flex;
+  justify-content: center:
+}
+
+.glyphicon {
+  padding: 3px;
 }

@@ -17,6 +17,8 @@ $(document).ready(function() {
   var stackList = $('.stack-list');
   $(stackList).hide();
 
+  var aboutInfo = $('.about-info');
+
   //check local storage to see if these is an object there
   checkLocalStorage();
   //creating bookListObject in local storage
@@ -42,6 +44,7 @@ $(document).ready(function() {
       initializeUserFromLocalStorage();
       $(getStarted).hide();
       $(searchInput).show();
+      $(aboutInfo).hide();
       $('#title-search').focus();
       renderStack();
     }
@@ -51,7 +54,7 @@ $(document).ready(function() {
     var bookListObject = JSON.parse(localStorage.getItem('bookList'));
     console.log(bookListObject);
     $('#welcome-name').text('Welcome back, ' + bookListObject.name + '!');
-    $('#welcome-stack-name').text('Here is your "' + bookListObject.bookLists[0].listName + '" stack...');
+    $('#welcome-stack-name').text('Here is your "' + bookListObject.bookLists[0].listName + '" Stack...');
     $('.stack-title').text(bookListObject.bookLists[0].listName);
   }
 
