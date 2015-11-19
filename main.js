@@ -8,7 +8,7 @@ $(document).ready(function() {
   var searchInput = $('.search-input');
   $(searchInput).hide();
 
-//  Need to focus on title search box
+  //  Need to focus on title search box
   $('#title-search').focus();
 
   var resultsList = $('.results-list');
@@ -66,7 +66,7 @@ $(document).ready(function() {
       // trying something from 67-75
       var imgTd = $(document.createElement('td'));
       var thumbnailLink = '';
-      if (book.thumbnail !== ''){
+      if (book.thumbnail !== '') {
         thumbnailLink = book.thumbnail;
         console.log(thumbnailLink);
         imgTd.append($(document.createElement('img')).attr('src', thumbnailLink).addClass('image-thumbnail'));
@@ -128,8 +128,10 @@ $(document).ready(function() {
     // $.get('https://www.googleapis.com/books/v1/volumes?q=intitle:' + encodeURI(title) + '+inauthor:' + encodeURI(author) + '+' + encodeURI(keyword) +
     $.get(searchURL,
       function(data) {
-        console.log(data);
         var resultTable = $('#results-table');
+        if (data.totalItems === 0) {
+          alert('I am sorry, your search returned no results.  Would you like to try again?');
+        }
         data.items.forEach(function(book) {
           var row = $(document.createElement('tr')).attr('id', 'addrow-id' + book.id);
           var imgTd = $(document.createElement('td'));
@@ -171,6 +173,7 @@ $(document).ready(function() {
         });
       });
   }
+
 
 
   // button from first user view to create a new book list object
