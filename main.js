@@ -63,10 +63,12 @@ window.onresize = checkText;
       $('.remove-button').html('Remove');
       $('.read-button').html('Read');
       $('.unread-button').html('Unread');
+      $('.add-button').html('Add');
     } else {
       $('.remove-button').html('Remove from Stack');
       $('.read-button').html('Mark as Read');
       $('.unread-button').html('Mark as Unread');
+      $('.add-button').html('Add to Stack');
     }
 
   }
@@ -143,7 +145,7 @@ window.onresize = checkText;
       searchURL = searchURL + 'inauthor:' + encodeURI(author);
     }
     if (keyword !== undefined && keyword.length > 0) {
-      searchURL = searchURL + 'intitle:' + encodeURI(author);
+      searchURL = searchURL + keyword;
     }
     searchURL = searchURL + '&printType=books&projection=lite&fields=items(id%2CvolumeInfo(authors%2CimageLinks%2FsmallThumbnail%2CpublishedDate%2Ctitle))%2CtotalItems&key=AIzaSyCe2EkbnxxEpkWIV5_1CSj2u2STSwrlKuo';
     // $.get('https://www.googleapis.com/books/v1/volumes?q=intitle:' + encodeURI(title) + '+inauthor:' + encodeURI(author) + '+' + encodeURI(keyword) +
@@ -174,7 +176,7 @@ window.onresize = checkText;
             publishedDate: book.volumeInfo.publishedDate,
             thumbnail: thumbnailLink
           };
-          var $addButton = $('<button id="add" type="button" class="btn btn-default btn-xs btn-block">Add to Stack</button>');
+          var $addButton = $('<button id="add" type="button" class="add-button btn btn-default btn-xs btn-block">Add to Stack</button>');
           $addButton.on('click', function() {
             var stringObject = this.dataset.bookInfo;
             var bookObject = JSON.parse(stringObject);
