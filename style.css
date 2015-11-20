@@ -1,8 +1,23 @@
+h1, h2, h4, p {
+  padding: 10px;
+}
+
+p {
+  color: black;
+  font-size: 14px;
+}
+
+td {
+  color: black;
+  font-size: 12px;
+}
+
 .container-middle {
   background-image: url("images/stack-of-books.jpg");
   background-size: cover;
   opacity: 50;
 }
+
 .footer {
   background-color: #B9CAC4;
 }
@@ -31,23 +46,10 @@
   width: 50px;
 }
 
-h1, h2, h4, p {
-  padding: 10px;
-}
-
-p {
-  color: black;
-  font-size: 14px;
-}
-
-td {
-  color: black;
-  font-size: 12px;
-}
-
 .transparent {
   background-color: rgba(255, 255, 255, 0.65);
 }
+
 .btn-xs, .btn-group-xs>.btn {
   font-size: 9px;
 }
@@ -59,7 +61,7 @@ td {
 .container-bottom {
   padding:5px;
   display: flex;
-  justify-content: center:
+  justify-content: center;
 }
 
 .glyphicon {
