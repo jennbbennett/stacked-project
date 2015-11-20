@@ -1,25 +1,14 @@
 $(document).ready(function() {
-  console.log("ready!");
-
-  // focus on input box on new user view
   var getStarted = $('.get-started-input');
   $('#text-name').focus();
-  //hidden search div for new user view
   var searchInput = $('.search-input');
   $(searchInput).hide();
-
-  //  Need to focus on title search box
   $('#title-search').focus();
-
   var resultsList = $('.results-list');
   $(resultsList).hide();
-
   var stackList = $('.stack-list');
   $(stackList).hide();
-
   var aboutInfo = $('.about-info');
-
-  //check local storage to see if these is an object there
   checkLocalStorage();
   //creating bookListObject in local storage
   function initializeLocalStorage(name, email, stackName) {
@@ -31,7 +20,6 @@ $(document).ready(function() {
         books: {}
       }],
     };
-
     localStorage.setItem('bookList', JSON.stringify(bookListObject));
   }
 
@@ -57,8 +45,9 @@ $(document).ready(function() {
     $('#welcome-stack-name').text('Here is your "' + bookListObject.bookLists[0].listName + '" Stack...');
     $('.stack-title').text(bookListObject.bookLists[0].listName);
   }
-window.onresize = checkText;
-  function checkText(){
+  window.onresize = checkText;
+
+  function checkText() {
     if (window.innerWidth < 1200 && window.innerWidth > 1000) {
       $('.remove-button').html('Remove');
       $('.read-button').html('Read');
@@ -70,7 +59,6 @@ window.onresize = checkText;
       $('.unread-button').html('Mark as Unread');
       $('.add-button').html('Add to Stack');
     }
-
   }
 
   function renderStack() {
@@ -81,7 +69,6 @@ window.onresize = checkText;
     Object.keys(bookObj).forEach(function(bookKey) {
       var book = bookObj[bookKey];
       var row = $(document.createElement('tr'));
-      // trying something from 67-75
       var imgTd = $(document.createElement('td'));
       var thumbnailLink = '';
       if (book.thumbnail !== '') {
@@ -92,17 +79,11 @@ window.onresize = checkText;
         imgTd.text('No Image Available');
       }
       row.append(imgTd);
-      // row.append($(document.createElement('td')).append($(document.createElement('img')).attr('src', book.thumbnail).addClass('image-thumbnail')));
       row.append($(document.createElement('td')).text(book.title));
       row.append($(document.createElement('td')).text(book.authors));
       row.append($(document.createElement('td')).text(book.publishedDate));
       var buttonTd = $(document.createElement('td'));
       var $removeButton = $('<button id="remove" type="button" class="remove-button btn btn-default btn-xs btn-block">Remove from Stack</button>');
-      // if (window.innerWidth < 1200 && window.innerWidth > 1000) {
-      //   console.log('test');
-      //   ($removeButton).html('Remove');
-      // }
-      // checkText($removeButton, 'remove');
       $removeButton.on('click', function() {
         var bookId = this.dataset.bookId;
         var bookListObject = JSON.parse(localStorage.getItem('bookList'));
@@ -133,11 +114,12 @@ window.onresize = checkText;
         bookList.books[book.id].read = false;
         localStorage.setItem('bookList', JSON.stringify(bookListObject));
       });
-      if(book.read){
+      if (book.read) {
+        row.css('background-color', '#C4BFB9');
         $readButton.hide();
         $unreadButton.show();
       } else {
-        debugger;
+        row.css('background-color', '#F3D7A7');
         $unreadButton.hide();
         $readButton.show();
       }
@@ -147,10 +129,11 @@ window.onresize = checkText;
       row.append(buttonTd);
       // $unreadButton.hide();
       stackTable.append(row);
-      row.css('background-color', '#F3D7A7');
+      //row.css('background-color', '#F3D7A7');
     });
     $(stackList).show();
   }
+
   function markRead(row, readButton, unreadButton, bookId) {
     row.css('background-color', '#C4BFB9');
     var bookListObject = JSON.parse(localStorage.getItem('bookList'));
@@ -201,7 +184,7 @@ window.onresize = checkText;
             authors: book.volumeInfo.authors,
             publishedDate: book.volumeInfo.publishedDate,
             thumbnail: thumbnailLink,
-            read:false
+            read: false
           };
           var $addButton = $('<button id="add" type="button" class="add-button btn btn-default btn-xs btn-block">Add to Stack</button>');
           $addButton.on('click', function() {
