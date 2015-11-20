@@ -10,7 +10,7 @@ $(document).ready(function() {
   $(stackList).hide();
   var aboutInfo = $('.about-info');
   checkLocalStorage();
-  //creating bookListObject in local storage
+
   function initializeLocalStorage(name, email, stackName) {
     var bookListObject = {
       name: name,
@@ -207,9 +207,6 @@ $(document).ready(function() {
       });
   }
 
-
-
-  // button from first user view to create a new book list object
   $('#stackMe-button').click(function(event) {
     var myName = $('#text-name').val();
     console.log(myName);
@@ -220,8 +217,6 @@ $(document).ready(function() {
     initializeLocalStorage(myName, myEmail, myStackName);
   });
 
-
-  // button from search fields to generate API query
   $('#findMe-button').click(function() {
     var title = $('#title-search').val();
     console.log(title);
@@ -236,7 +231,6 @@ $(document).ready(function() {
     }
   });
 
-  //clear search button
   $('#clearSearch-button').click(function() {
     $('#title-search').val('');
     $('#author-search').val('');
@@ -246,7 +240,4 @@ $(document).ready(function() {
     $(searchInput).show();
     $(resultsList).hide();
   });
-
-
-
 });
