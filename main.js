@@ -119,22 +119,48 @@ window.onresize = checkText;
         row.css('background-color', '#C4BFB9');
         $readButton.hide();
         $unreadButton.show();
+        var bookListObject = JSON.parse(localStorage.getItem('bookList'));
+        var bookList = bookListObject.bookLists[0];
+        bookList.books[book.id].read = true;
+        localStorage.setItem('bookList', JSON.stringify(bookListObject));
       });
       $unreadButton.on('click', function() {
         row.css('background-color', '#F3D7A7');
         $unreadButton.hide();
         $readButton.show();
+        var bookListObject = JSON.parse(localStorage.getItem('bookList'));
+        var bookList = bookListObject.bookLists[0];
+        bookList.books[book.id].read = false;
+        localStorage.setItem('bookList', JSON.stringify(bookListObject));
       });
+      if(book.read){
+        $readButton.hide();
+        $unreadButton.show();
+      } else {
+        debugger;
+        $unreadButton.hide();
+        $readButton.show();
+      }
       buttonTd.append($removeButton);
       buttonTd.append($readButton);
       buttonTd.append($unreadButton);
       row.append(buttonTd);
-      $unreadButton.hide();
+      // $unreadButton.hide();
       stackTable.append(row);
       row.css('background-color', '#F3D7A7');
     });
     $(stackList).show();
   }
+  function markRead(row, readButton, unreadButton, bookId) {
+    row.css('background-color', '#C4BFB9');
+    var bookListObject = JSON.parse(localStorage.getItem('bookList'));
+    var bookList = bookListObject.bookLists[0];
+    bookList.books[bookId].read = true;
+
+    readButton.hide();
+    unreadButton.show();
+  }
+
 
   function searchForBook(title, author, keyword) {
     var searchURL = 'https://www.googleapis.com/books/v1/volumes?q=';
@@ -174,7 +200,8 @@ window.onresize = checkText;
             title: book.volumeInfo.title,
             authors: book.volumeInfo.authors,
             publishedDate: book.volumeInfo.publishedDate,
-            thumbnail: thumbnailLink
+            thumbnail: thumbnailLink,
+            read:false
           };
           var $addButton = $('<button id="add" type="button" class="add-button btn btn-default btn-xs btn-block">Add to Stack</button>');
           $addButton.on('click', function() {
