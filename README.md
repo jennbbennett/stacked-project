@@ -16,4 +16,4 @@ To get started with Stacked and utilize the gulpfile.js, you will need to:
 
     $gulp
 
-Stacked also relies on data from the Google Books API.  A key is needed for the AJAx call and can be obtained by following these instructions:  https://developers.google.com/books/docs/v1/using?hl=en
+Stacked also relies on data from the Google Books API.  A key is needed for the AJAX call and can be obtained by following these instructions:  https://developers.google.com/books/docs/v1/using?hl=en
