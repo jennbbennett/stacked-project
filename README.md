@@ -12,7 +12,7 @@ To get started with Stacked and utilize the gulpfile.js, you will need to:
 
   $ npm install --save-dev gulp
 
-3.  Run gulp (some default tasks are set in gulpfile.js)
+3.  Run gulp (some default tasks are set in gulpfile.js):
 
     $gulp
 
